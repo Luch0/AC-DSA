@@ -15,7 +15,15 @@ import Foundation
 //Sample output: [1,2,3,4,5,0]
 
 func problemOne(arr: [Int]) -> [Int] {
-    return []
+    var returnArr = arr
+    for i in 0..<returnArr.count {
+        if i != 0 {
+            returnArr[i-1] = arr[i]
+        } else {
+            returnArr[returnArr.count-1] = arr[0]
+        }
+    }
+    return returnArr
 }
 
 
@@ -26,7 +34,11 @@ func problemOne(arr: [Int]) -> [Int] {
 //Sample output: [3,4,5,0,1,2]
 
 func problemTwo(arr: [Int], x: Int) -> [Int] {
-    return []
+    var returnArr = arr
+    for i in 0..<returnArr.count {
+        returnArr[i] = arr[abs(i+x)%arr.count]
+    }
+    return returnArr
 }
 
 //Write a function that accepts two strings, and returns true if one string is rotation of the other, taking letter case into account.
@@ -42,6 +54,16 @@ func problemTwo(arr: [Int], x: Int) -> [Int] {
 //Sample output 3: false
 
 func problemThree(strOne: String, strTwo: String) -> Bool {
+    if strOne.count != strTwo.count {
+        return false
+    }
+    var strOneCopy = strOne
+    for _ in 0..<strOne.count {
+        let rotatedChar = strOneCopy.remove(at: strOneCopy.index(strOneCopy.startIndex, offsetBy: strOneCopy.count-1))
+        strOneCopy.insert(rotatedChar, at: strOneCopy.index(strOneCopy.startIndex, offsetBy: 0))
+        print(strOneCopy)
+        if strOneCopy == strTwo { return true }
+    }
     return false
 }
 
@@ -63,7 +85,15 @@ func problemThree(strOne: String, strTwo: String) -> Bool {
 //|(1 + 5 + 9) - (3 + 5 + 11)| = |15 - 19| = |-4| = 4
 
 func problemFour(arr: [[Int]]) -> Int {
-    return 0
+    var diag1 = 0
+    var diag2 = 0
+    for i in 0..<3 {
+        for j in 0..<3 {
+            if i == j { diag1 += arr[i][j] }
+            if i + j == 2 { diag2 += arr[i][j] }
+        }
+    }
+    return abs(diag1 - diag2)
 }
 
 
@@ -84,6 +114,14 @@ func problemFour(arr: [[Int]]) -> Int {
 //|(4 + 1 + 3 + 3) - (5 + 9 + 1 + 9)| = |11 - 24| = |-13| = 13
 
 func problemFive(arr: [[Int]]) -> Int {
-    return 0
+    var diag1 = 0
+    var diag2 = 0
+    for i in 0..<arr.count {
+        for j in 0..<arr[i].count {
+            if i == j { diag1 += arr[i][j] }
+            if i + j == arr.count-1 { diag2 += arr[i][j] }
+        }
+    }
+    return abs(diag1 - diag2)
 }
 
